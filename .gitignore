@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+data/
+cache/
+ext/
+models/
+*.log
+.DS_Store

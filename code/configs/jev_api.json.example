@@ -1,0 +1,9 @@
+{
+  "_comment": "复制为 jev_api.json 后填写；密钥不入库、不打印。protocol 仅支持 systemone",
+  "endpoint": "",
+  "api_key": "",
+  "model": "",
+  "protocol": "systemone",
+  "max_questions_per_pass": 64,
+  "timeout": 60
+}

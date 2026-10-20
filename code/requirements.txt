@@ -1,0 +1,21 @@
+# Python 3.12.  Core (CPU pipeline: lexical scoring, closure, certification, statistics, EX evaluation)
+numpy
+scipy
+pandas
+scikit-learn
+tiktoken              # prompt-token counting (cost columns)
+sqlglot>=25.0         # gold SQL parsing (column-level requirement sets)
+psutil>=5.9           # cost / memory monitoring (optional)
+requests              # box/omni_zip_fetch.py (partial download of the OmniSQL data release)
+remotezip             # box/omni_zip_list.py
+matplotlib            # plots
+
+# Neural readers / embeddings (tier-0 MiniLM, laya / block reader, cross-encoder baseline)
+torch
+transformers
+sentence-transformers
+safetensors>=0.4
+bitsandbytes          # 4-bit loading of the this-that backend (optional)
+
+# Local GPU generation (box/ scripts); install on the GPU machine only
+# vllm
