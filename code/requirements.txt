@@ -4,7 +4,7 @@ scipy
 pandas
 scikit-learn
 tiktoken              # prompt-token counting (cost columns)
-sqlglot>=25.0         # gold SQL parsing (column-level requirement sets)
+sqlglot==30.20.0         # gold SQL parsing (column-level requirement sets)
 psutil>=5.9           # cost / memory monitoring (optional)
 requests              # box/omni_zip_fetch.py (partial download of the OmniSQL data release)
 remotezip             # box/omni_zip_list.py

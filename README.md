@@ -45,6 +45,7 @@ The released reader scores are in `scores/`, and the scripts read them through `
 export CRISP_CACHE="$PWD/scores"
 export CRISP_DATA="$PWD/data"
 export CRISP_RESULTS="$PWD/results"
+# requirement extraction needs sqlglot (pinned in code/requirements.txt);
 # after placing BIRD dev.json/dev_tables.json in data/raw/bird/:
 python reproduce/certificate_dev.py --eps 0.05
 # expected: coverage 0.955, 20.2 columns (no holdout/train annotations needed)
@@ -66,7 +67,7 @@ python code/scripts/three_way.py results/ results/flags/
 | BIRD train with linking annotations (`train_0711.jsonl`) | Hugging Face `arcwise/bird_sql_annotated` | `data/raw/bird/arcwise/train_0711.jsonl` |
 | Spider dev/train | https://yale-lily.github.io/spider (or HF `xlangai/spider`) | `data/raw/spider_*.parquet`, `spider_schema.json` |
 | Spider 2.0-lite | https://github.com/xlang-ai/Spider2 (`spider2-lite/`) | `ext/Spider2/spider2-lite/`; run `box/spider2_extract.py`, `box/spider2_gold2.py` |
-| SNAILS (8 real databases, 394 questions) | SNAILS benchmark (Luoma and Kumar, PACMMOD 2025) | `data/snails/*.sqlite`, `data/snails/pairs/*.sql` |
+| SNAILS (8 real databases, 396 questions; 394 with executable reference SQL) | SNAILS benchmark (Luoma and Kumar, PACMMOD 2025) | `data/snails/*.sqlite`, `data/snails/pairs/*.sql` |
 | OmniSQL released inputs | HF `seeklhy/OmniSQL-datasets` (`data.zip`) | `ext/omnidata/data/...`; copy `dev_bird.json` to `data/omnisql_dev_bird.json` |
 | OmniSQL-7B | HF `seeklhy/OmniSQL-7B` | `models/OmniSQL-7B` |
 | RSL-SQL released linkings | RSL-SQL repo, `main_result/BIRD_DEV/{gpt-4o,deepseek}` | `data/rsl/<model>_LLM.json`, `data/rsl/<model>_augmentation.json` |
@@ -91,15 +92,16 @@ SNAILS and the 2,635-column warehouse are built from the SNAILS release; see
 
 | Paper item | Script |
 |---|---|
-| Coverage / validity (Fig. 3), ablations | `code/scripts/v2_certify.py`, `v2_validity.py`, `v2_ablation_cert.py`, `v2_ncal.py`, `v2_dbcond.py`, `v2_mondrian.py`, `v2_perturb_eval.py` |
+| Coverage / validity (Fig. 3), ablations (Table 8) | `code/scripts/v2_certify.py`, `v2_validity.py`, `v2_ablation_cert.py`, `v2_ncal.py`, `v2_dbcond.py`, `v2_mondrian.py` |
+| Coverage across workloads (Table 1) | `code/scripts/v2_perturb_eval.py`, `v2_scale_curve.py`, `crisp_nb.py cert` |
 | Main EX table (Table 2) | `code/scripts/v2_e2e.py`; or recompute from `results/flags/` |
-| Certified selection (Table 4) | `code/scripts/three_way.py results/ results/flags/` |
 | OmniSQL official setting (Table 3) | `box/official_prune.py`, `box/omni_template*.py`, `box/ex_remote.py` |
-| Cost (Table 5, Fig. 5) | `code/scripts/v2_cost.py`, `v2_pareto_cost.py` |
+| Certified selection (Table 4, Fig. 4) | `code/scripts/three_way.py results/ results/flags/`; pools: `v2_topk_pools.py` |
+| Equal-coverage linker baselines (Table 5) | `code/scripts/v2_rsl_eval.py`, `v2_rsl_eval_lib.py`, `v2_codes_eval.py` |
+| Cost (Table 6, Fig. 5) | `code/scripts/v2_cost.py`, `v2_pareto_cost.py` |
 | Scale (Fig. 6) | `code/scripts/scale_build.py`, `v2_scale_curve.py`, `v2_scale_score.py` |
 | SNAILS + warehouse (Fig. 7) | `code/scripts/crisp_nb.py` (`build/reader/cert/cert2/eval`), `nb_gen.py`, `nb_pooled.py` |
-| Latency | `code/scripts/lat_bench.py`, `lat_reader.py` |
-| Equal-coverage baselines | `code/scripts/v2_rsl_eval.py`, `v2_rsl_eval_lib.py`, `v2_codes_eval.py` |
+| Serving latency (Table 7) | `code/scripts/lat_bench.py`, `lat_reader.py` |
 | Review-1019 analyses | `reproduce/README.md` |
 
 All scripts print their exact arguments in the docstring. Use `--help` where available.
