@@ -81,9 +81,9 @@ SNAILS and the 2,635-column warehouse are built from the SNAILS release; see
 - `scores/` contains the reader outputs used by the paper (Jev 1.13.0, laya, the distilled
   ModernBERT block reader, and the CodeS cross-encoder). With these files, all certificates can be
   recomputed without querying a model and without the commercial Jev API.
-- The distilled block-reader weights (~1.6 GB) are not stored in git. Download them from
-  **<HF/Zenodo link to be filled>** and unpack to `models/laya_block_distill` if you want to score
-  new schemas with the local reader.
+- The distilled block-reader weights (~1.6 GB) are not stored in git. They will be released
+  together with the formal publication of the paper. To score new schemas with the local reader,
+  unpack them to `models/laya_block_distill`.
 - Jev is a commercial System-One API; the repository never stores a key. `code/configs/jev_api.json.example`
   shows the configuration. The paper's scores were produced with version 1.13.0 and are released
   above so that the guarantees can be checked offline.
