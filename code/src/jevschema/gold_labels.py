@@ -17,6 +17,7 @@ best-effort：先别名，再唯一匹配，最后退化到"全部候选"，并�
 from __future__ import annotations
 
 import re
+import warnings
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
@@ -58,11 +59,22 @@ def _norm(x: str) -> str:
 
 
 # ----------------------------------------------------------------------------- sqlglot 路径
+_SQLGLOT_WARNED = False
+
+
 def _extract_with_sqlglot(sql: str, schema: SchemaGraph) -> Optional[GoldSet]:
+    global _SQLGLOT_WARNED
     try:
         import sqlglot
         from sqlglot import exp
     except Exception:
+        # 没装 sqlglot 时会退回正则抽取，需求集合和论文不同，只提醒一次
+        if not _SQLGLOT_WARNED:
+            _SQLGLOT_WARNED = True
+            warnings.warn("sqlglot is not installed; requirement extraction falls back to a regex "
+                          "parser and will not reproduce the paper's numbers. "
+                          "Run: pip install -r code/requirements.txt (sqlglot==30.20.0).",
+                          RuntimeWarning, stacklevel=2)
         return None
 
     try:

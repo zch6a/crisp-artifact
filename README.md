@@ -134,19 +134,3 @@ Legacy `JEVSCHEMA_*` variables still override the corresponding paths.
 
 MIT, see `LICENSE`. The released reader scores are outputs of the models listed above; the
 datasets keep their original licenses.
-
-
-## Anonymity
-
-This artifact contains no author names, affiliations, emails, absolute filesystem paths or
-credentials. Before the first commit, set an anonymous git identity and use an anonymous GitHub
-account/organization if the submission is double-blind:
-
-```bash
-git config user.name "Anonymous"
-git config user.email "anon@localhost"
-```
-
-Run `python reproduce/check_anonymity.py` after any update; it fails on drive-letter paths,
-POSIX home/scratch paths, emails or private keys. Do not add personal links, acknowledgements or
-institutional names to the repository.
